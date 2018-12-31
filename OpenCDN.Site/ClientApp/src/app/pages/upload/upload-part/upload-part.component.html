@@ -1,0 +1,16 @@
+<div>
+    <!-- file info id -->
+    <div *ngIf="!submitted" contenteditable="true" [textContent]="id" (input)="id=$event.target.textContent"></div>
+    <div *ngIf="submitted">{{id}}</div>
+    <!-- file info name -->
+    <div *ngIf="!submitted" contenteditable="true" [textContent]="name" (input)="name=$event.target.textContent"></div>
+    <div *ngIf="submitted">{{name}}</div>
+    <!-- file info name -->
+    <div *ngIf="!submitted" contenteditable="true" [textContent]="type" (input)="type=$event.target.textContent"></div>
+    <div *ngIf="submitted">{{type}}</div>
+    <!-- file info description -->
+    <div *ngIf="!submitted" contenteditable="true" [textContent]="description" (input)="description=$event.target.textContent"></div>
+    <div *ngIf="submitted">{{description}}</div>
+
+    <button *ngIf="!submitted" (click)="submit()">Save Changes</button>
+</div>

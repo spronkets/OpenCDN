@@ -1,0 +1,9 @@
+<ng-template ngFor let-notice [ngForOf]="notices" let-i="index">
+    <div *ngIf="notice.type == NoticeType.Info" class="alert alert-info" role="alert">{{notice.text}}</div>
+    <div *ngIf="notice.type == NoticeType.Success" class="alert alert-success" role="alert">{{notice.text}}</div>
+    <div *ngIf="notice.type == NoticeType.Warning" class="alert alert-warning" role="alert">{{notice.text}}</div>
+    <div *ngIf="notice.type == NoticeType.Error" class="alert alert-danger" role="alert">{{notice.text}}</div>
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</ng-template>

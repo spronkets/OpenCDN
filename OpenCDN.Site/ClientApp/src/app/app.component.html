@@ -1,0 +1,30 @@
+<!-- Source: https://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar/ -->
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">CDN</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/browse">Browse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/upload">Upload</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container">
+    <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">CDN provided by Kody Crossman (https://github.com/kcrossman).</span>
+    </div>
+</footer>
