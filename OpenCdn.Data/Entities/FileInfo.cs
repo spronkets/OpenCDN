@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenCdn.Data.Files.Entities
+namespace OpenCdn.Data.Entities
 {
     public class FileInfo
     {

@@ -22,25 +22,61 @@ namespace OpenCdn.Common.DependencyInjection
                 [typeof(Scoped)] = new List<Type>(),
                 [typeof(Singleton)] = new List<Type>()
             };
-
+            
             var assemblies = Assembly.GetCallingAssembly().GetReferencedAssemblies().Select(Assembly.Load);
-            var types = assemblies.SelectMany(ra => ra.GetTypes());
-            foreach (var type in types)
+            var implementationTypes = assemblies.SelectMany(ra => ra.GetTypes());
+            foreach (var implementationType in implementationTypes)
             {
-                if (type.GetCustomAttributes(typeof(Singleton), true).Length > 0)
+                if (implementationType.GetCustomAttributes(typeof(Singleton), true).Length > 0)
                 {
-                    registeredTypes[typeof(Singleton)].Add(type);
-                    services.AddSingleton(type);
+                    var serviceTypes = implementationType.GetInterfaces();
+                    if (serviceTypes.Length > 0)
+                    {
+                        foreach (var serviceType in serviceTypes)
+                        {
+                            registeredTypes[typeof(Singleton)].Add(serviceType);
+                            services.AddSingleton(serviceType, implementationType);
+                        }
+                    }
+                    else
+                    {
+                        registeredTypes[typeof(Singleton)].Add(implementationType);
+                        services.AddSingleton(implementationType);
+                    }
                 }
-                else if (type.GetCustomAttributes(typeof(Scoped), true).Length > 0)
+                else if (implementationType.GetCustomAttributes(typeof(Scoped), true).Length > 0)
                 {
-                    registeredTypes[typeof(Scoped)].Add(type);
-                    services.AddScoped(type);
+                    var serviceTypes = implementationType.GetInterfaces();
+                    if (serviceTypes.Length > 0)
+                    {
+                        foreach (var serviceType in serviceTypes)
+                        {
+                            registeredTypes[typeof(Scoped)].Add(serviceType);
+                            services.AddScoped(serviceType, implementationType);
+                        }
+                    }
+                    else
+                    {
+                        registeredTypes[typeof(Scoped)].Add(implementationType);
+                        services.AddScoped(implementationType);
+                    }
                 }
-                else if (type.GetCustomAttributes(typeof(Transient), true).Length > 0)
+                else if (implementationType.GetCustomAttributes(typeof(Transient), true).Length > 0)
                 {
-                    registeredTypes[typeof(Transient)].Add(type);
-                    services.AddScoped(type);
+                    var serviceTypes = implementationType.GetInterfaces();
+                    if (serviceTypes.Length > 0)
+                    {
+                        foreach (var serviceType in serviceTypes)
+                        {
+                            registeredTypes[typeof(Transient)].Add(serviceType);
+                            services.AddTransient(serviceType, implementationType);
+                        }
+                    }
+                    else
+                    {
+                        registeredTypes[typeof(Transient)].Add(implementationType);
+                        services.AddTransient(implementationType);
+                    }
                 }
             }
             return registeredTypes;

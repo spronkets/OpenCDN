@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OpenCdn.Data.Users.Entities
+namespace OpenCdn.Data.Entities
 {
     public class User
     {

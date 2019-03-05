@@ -1,4 +1,4 @@
-﻿namespace OpenCdn.Data.Users
+﻿namespace OpenCdn.Data.Interfaces
 {
     public interface IUsersRepostory
     {
