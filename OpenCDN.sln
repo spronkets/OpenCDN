@@ -1,9 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28407.52
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCDN.Site", "OpenCDN.Site\OpenCDN.Site.csproj", "{E66C4439-438C-40F2-A085-1415371BF3A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCdn.WebApi", "OpenCdn.WebApi\OpenCdn.WebApi.csproj", "{C7FE1D51-6829-4278-B28F-E300AFA8AF4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{58A356BC-4D56-4891-8D6A-48DD25438B66}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCdn.Client", "OpenCdn.Client\OpenCdn.Client.csproj", "{D14E1D0D-99A5-45B9-8640-115080E1F5D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7FE1D51-6829-4278-B28F-E300AFA8AF4A} = {C7FE1D51-6829-4278-B28F-E300AFA8AF4A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCdn.Data", "OpenCdn.Data\OpenCdn.Data.csproj", "{BFF93814-3992-4183-8888-985D64C72C6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCdn.Common", "OpenCdn.Common\OpenCdn.Common.csproj", "{AEA365A7-C340-4654-9797-BA0C4464E73E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +27,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E66C4439-438C-40F2-A085-1415371BF3A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E66C4439-438C-40F2-A085-1415371BF3A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E66C4439-438C-40F2-A085-1415371BF3A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E66C4439-438C-40F2-A085-1415371BF3A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7FE1D51-6829-4278-B28F-E300AFA8AF4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7FE1D51-6829-4278-B28F-E300AFA8AF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7FE1D51-6829-4278-B28F-E300AFA8AF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7FE1D51-6829-4278-B28F-E300AFA8AF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D14E1D0D-99A5-45B9-8640-115080E1F5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D14E1D0D-99A5-45B9-8640-115080E1F5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D14E1D0D-99A5-45B9-8640-115080E1F5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D14E1D0D-99A5-45B9-8640-115080E1F5D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFF93814-3992-4183-8888-985D64C72C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF93814-3992-4183-8888-985D64C72C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF93814-3992-4183-8888-985D64C72C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF93814-3992-4183-8888-985D64C72C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEA365A7-C340-4654-9797-BA0C4464E73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA365A7-C340-4654-9797-BA0C4464E73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA365A7-C340-4654-9797-BA0C4464E73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA365A7-C340-4654-9797-BA0C4464E73E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8CED474A-6A7D-4A04-8A44-E5146BC54D3E}
+		SolutionGuid = {7D9F0FF7-B46F-469F-890D-9998F5C422B4}
 	EndGlobalSection
 EndGlobal

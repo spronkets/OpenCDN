@@ -1,0 +1,6 @@
+<ng-template [ngIf]="loading" [ngIfElse]="loaded">
+    Loading...
+</ng-template>
+<ng-template #loaded>
+    We pinged, they '{{pongData}}'ed
+</ng-template>

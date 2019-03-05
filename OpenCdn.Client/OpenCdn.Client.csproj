@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AfominDotCom.NgProjectTemplate.Server" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="package.json" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NgProjectAssetsFile Condition="'$(ProjectAssetsFile)' != ''">$(ProjectAssetsFile)</NgProjectAssetsFile>
+    <NgProjectAssetsFile Condition="'$(NgProjectAssetsFile)' == ''">$(BaseIntermediateOutputPath)/project.assets.json</NgProjectAssetsFile>
+    <!-- Ensure $(NgProjectAssetsFile) is a full path -->
+    <NgProjectAssetsFile Condition="'$([System.IO.Path]::IsPathRooted($(NgProjectAssetsFile)))' != 'true'">
+      $([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(NgProjectAssetsFile)'))))
+    </NgProjectAssetsFile>
+  </PropertyGroup>
+
+  <Target Name="EnsureNugetPackagesInstalled" BeforeTargets="BeforeBuild" Condition="!Exists('$(NgProjectAssetsFile)')">
+    <Message Text="File $(NgProjectAssetsFile) was not found." Importance="high" />
+    <Message Text="------ Running a NuGet package restore ------" Importance="high" />
+    <Exec Command="dotnet restore" />
+    <Error Text="NuGet packages were restored. Run Build again." />
+  </Target>
+
+  <Target Name="NgBuildAndAddToPublishOutput" AfterTargets="ComputeFilesToPublish">
+    <Message Text=" " Importance="high" />
+    <Exec Command="npm run | findstr &quot;build:$(Configuration)&quot;" ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true" WorkingDirectory="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="ConsoleOutput" PropertyName="NpmScriptName" />
+    </Exec>
+    <Exec Condition=" '$(NpmScriptName)'=='build:$(Configuration)' " Command="npm run $(NpmScriptName)" />
+    <Exec Condition=" '$(NpmScriptName)'!='build:$(Configuration)' " Command="npm run build" />
+    
+    <ItemGroup>
+      <DistFiles Include="dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="CopyOnlyDist" AfterTargets="_CopyManagedProjectFilesToPublishIntermediateOutputPath;_CopyAspNetCoreFilesToIntermediateOutputPath">
+    <PropertyGroup>
+      <PublishIntermediateOutputPath>$(PublishIntermediateOutputPath)dist\</PublishIntermediateOutputPath>
+      <IsTransformWebConfigDisabled>True</IsTransformWebConfigDisabled>
+    </PropertyGroup>
+  </Target>
+  
+</Project>
