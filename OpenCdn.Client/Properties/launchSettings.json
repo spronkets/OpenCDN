@@ -10,14 +10,14 @@
     "profiles": {
         "IIS Express": {
             "commandName": "IISExpress",
-            "launchBrowser": false,
+            "launchBrowser": true,
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
         },
         "OpenCdn.Client": {
             "commandName": "Project",
-            "launchBrowser": false,
+            "launchBrowser": true,
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
@@ -25,7 +25,7 @@
         },
         "Docker": {
             "commandName": "Docker",
-            "launchBrowser": false,
+            "launchBrowser": true,
             "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}"
         }
     }

@@ -1,10 +1,8 @@
-﻿using OpenCdn.Common.DependencyInjection;
-using OpenCdn.Data.Interfaces;
+﻿using OpenCdn.Data.Interfaces;
 
 namespace OpenCdn.Data.Repositories
 {
-    [Singleton]
-    public class UsersRepository : IUsersRepostory
+    internal class UsersRepository : IUsersRepostory
     {
     }
 }

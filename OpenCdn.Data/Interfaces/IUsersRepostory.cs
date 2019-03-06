@@ -1,5 +1,8 @@
-﻿namespace OpenCdn.Data.Interfaces
+﻿using OpenCdn.Common.DependencyInjection;
+
+namespace OpenCdn.Data.Interfaces
 {
+    [Singleton]
     public interface IUsersRepostory
     {
     }

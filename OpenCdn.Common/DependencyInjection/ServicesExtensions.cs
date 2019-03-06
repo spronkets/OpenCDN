@@ -9,77 +9,64 @@ namespace OpenCdn.Common.DependencyInjection
     public static class ServicesExtensions
     {
         /// <summary>
-        /// This will auto-register any Transient, Scoped, and Singleton-annotated classes.
+        /// This will auto-register any Transient, Scoped, and Singleton-attributed interfaces/classes.
         /// </summary>
         /// <remarks>
         /// The largest scope (Singleton > Scoped > Transient) will override others.
         /// </remarks>
-        public static Dictionary<Type, List<Type>> AddAny(this IServiceCollection services)
+        public static Dictionary<Type, Type> AutoRegisterDependencies(this IServiceCollection services)
         {
-            var registeredTypes = new Dictionary<Type, List<Type>>
+            var attributes = new List<Type> { typeof(Transient), typeof(Scoped), typeof(Singleton) };
+            var assemblyTypes = Assembly.GetCallingAssembly().GetReferencedAssemblies().Select(Assembly.Load).SelectMany(a => a.GetTypes()).ToList();
+
+            var registrations = new Dictionary<Type, Type>();
+            foreach (var attribute in attributes)
             {
-                [typeof(Transient)] = new List<Type>(),
-                [typeof(Scoped)] = new List<Type>(),
-                [typeof(Singleton)] = new List<Type>()
-            };
-            
-            var assemblies = Assembly.GetCallingAssembly().GetReferencedAssemblies().Select(Assembly.Load);
-            var implementationTypes = assemblies.SelectMany(ra => ra.GetTypes());
-            foreach (var implementationType in implementationTypes)
-            {
-                if (implementationType.GetCustomAttributes(typeof(Singleton), true).Length > 0)
+                var attributedTypes = assemblyTypes.Where(at => at.CustomAttributes.Any(ata => ata.AttributeType == attribute)).ToList();
+                foreach (var attributedType in attributedTypes)
                 {
-                    var serviceTypes = implementationType.GetInterfaces();
-                    if (serviceTypes.Length > 0)
+                    Type implementedType;
+                    if (attributedType.IsClass)
                     {
-                        foreach (var serviceType in serviceTypes)
+                        implementedType = attributedType;
+                    }
+                    else if (attributedType.IsInterface)
+                    {
+                        var implementedTypes = assemblyTypes.Where(at => attributedType.IsAssignableFrom(at) && at != attributedType).ToList();
+                        if (implementedTypes.Count != 1)
                         {
-                            registeredTypes[typeof(Singleton)].Add(serviceType);
-                            services.AddSingleton(serviceType, implementationType);
+                            throw new NotSupportedException($"{attributedType.FullName} is not implemented properly for dependency auto registration.");
                         }
+
+                        implementedType = implementedTypes[0];
                     }
                     else
                     {
-                        registeredTypes[typeof(Singleton)].Add(implementationType);
-                        services.AddSingleton(implementationType);
+                        throw new NotSupportedException($"{attributedType.FullName} is not an expected attributed type in dependency auto registration.");
                     }
-                }
-                else if (implementationType.GetCustomAttributes(typeof(Scoped), true).Length > 0)
-                {
-                    var serviceTypes = implementationType.GetInterfaces();
-                    if (serviceTypes.Length > 0)
+                    
+                    if (attribute == typeof(Transient))
                     {
-                        foreach (var serviceType in serviceTypes)
-                        {
-                            registeredTypes[typeof(Scoped)].Add(serviceType);
-                            services.AddScoped(serviceType, implementationType);
-                        }
+                        services.AddTransient(attributedType, implementedType);
+                    }
+                    else if (attribute == typeof(Scoped))
+                    {
+                        services.AddScoped(attributedType, implementedType);
+                    }
+                    else if (attribute == typeof(Singleton))
+                    {
+                        services.AddSingleton(attributedType, implementedType);
                     }
                     else
                     {
-                        registeredTypes[typeof(Scoped)].Add(implementationType);
-                        services.AddScoped(implementationType);
+                        throw new NotSupportedException($"{attribute.FullName} is not supported in dependency auto registration");
                     }
-                }
-                else if (implementationType.GetCustomAttributes(typeof(Transient), true).Length > 0)
-                {
-                    var serviceTypes = implementationType.GetInterfaces();
-                    if (serviceTypes.Length > 0)
-                    {
-                        foreach (var serviceType in serviceTypes)
-                        {
-                            registeredTypes[typeof(Transient)].Add(serviceType);
-                            services.AddTransient(serviceType, implementationType);
-                        }
-                    }
-                    else
-                    {
-                        registeredTypes[typeof(Transient)].Add(implementationType);
-                        services.AddTransient(implementationType);
-                    }
+
+                    registrations[attributedType] = implementedType;
                 }
             }
-            return registeredTypes;
+            
+            return registrations;
         }
     }
 }
