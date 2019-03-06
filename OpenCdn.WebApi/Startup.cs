@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenCdn.Common.DependencyInjection;
 using OpenCdn.Data.Config;
+using OpenCommon.AutoRegistration.Extensions;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace OpenCdn.WebApi

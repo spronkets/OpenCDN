@@ -1,4 +1,4 @@
-﻿using OpenCdn.Common.DependencyInjection;
+﻿using OpenCommon.AutoRegistration.Annotations;
 
 namespace OpenCdn.Data.Interfaces
 {

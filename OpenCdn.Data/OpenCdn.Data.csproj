@@ -9,15 +9,12 @@
     <PackageReference Include="FluentMigrator" Version="3.1.3" />
     <PackageReference Include="FluentMigrator.Console" Version="3.1.3" />
     <PackageReference Include="FluentMigrator.Extensions.SqlServer" Version="3.1.3" />
+    <PackageReference Include="kcrossman.OpenCommon.AutoRegistration" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Files\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OpenCdn.Common\OpenCdn.Common.csproj" />
   </ItemGroup>
 
 </Project>
