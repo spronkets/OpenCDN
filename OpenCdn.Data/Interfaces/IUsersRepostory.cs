@@ -1,9 +1,9 @@
-﻿using OpenCommon.AutoRegistration.Annotations;
+﻿using OpenCommon.AutoRegistration.Attributes;
 
 namespace OpenCdn.Data.Interfaces
 {
-    [Singleton]
-    public interface IUsersRepostory
+    [Scoped]
+    public interface IUsersRepository
     {
     }
 }

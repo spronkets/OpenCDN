@@ -2,7 +2,7 @@
 
 namespace OpenCdn.Data.Repositories
 {
-    internal class UsersRepository : IUsersRepository
+    internal class UsersTestRepository : IUsersRepository
     {
     }
 }
