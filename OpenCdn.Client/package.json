@@ -1,44 +1,43 @@
 {
-    "name": "client-app",
-    "version": "0.0.0",
-    "scripts": {
-        "ng": "ng",
-        "yarn": "yarn",
-        "restore": "yarn install",
-        "start": "ng serve",
-        "start:docker": "ng serve --host 0.0.0.0",
-        "build": "ng build",
-        "build:dev": "ng build --watch",
-        "build:ssr": "ng run client-app:server:dev",
-        "lint": "ng lint"
-    },
-    "private": true,
-    "dependencies": {
-        "@angular/animations": "~7.2.4",
-        "@angular/common": "~7.2.4",
-        "@angular/compiler": "~7.2.4",
-        "@angular/core": "~7.2.4",
-        "@angular/forms": "~7.2.4",
-        "@angular/http": "^7.2.4",
-        "@angular/platform-browser": "~7.2.4",
-        "@angular/platform-browser-dynamic": "~7.2.0",
-        "@angular/platform-server": "^7.2.4",
-        "@angular/router": "~7.2.4",
-        "core-js": "^2.5.4",
-        "rxjs": "~6.4.0",
-        "tslib": "^1.9.0",
-        "zone.js": "~0.8.26"
-    },
-    "devDependencies": {
-        "@angular-devkit/build-angular": "^0.13.1",
-        "@angular/cli": "^7.3.2",
-        "@angular/compiler-cli": "~7.2.4",
-        "@angular/language-service": "~7.2.4",
-        "@types/node": "~8.9.4",
-        "node-sass": "^4.9.3",
-        "ts-node": "~7.0.0",
-        "tslint": "~5.11.0",
-        "typescript": "~3.2.2",
-        "yarn": "^1.13.0"
-    }
+  "name": "client-app",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "npm": "npm",
+    "restore": "npm install",
+    "start": "ng serve",
+    "start:docker": "ng serve --host 0.0.0.0",
+    "build": "ng build",
+    "build:dev": "ng build --watch",
+    "build:ssr": "ng run client-app:server:dev",
+    "lint": "ng lint"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~8.2.0",
+    "@angular/common": "~8.2.0",
+    "@angular/compiler": "~8.2.0",
+    "@angular/core": "~8.2.0",
+    "@angular/forms": "~8.2.0",
+    "@angular/platform-browser": "~8.2.0",
+    "@angular/platform-browser-dynamic": "~8.2.0",
+    "@angular/platform-server": "^8.2.0",
+    "@angular/router": "~8.2.0",
+    "core-js": "^2.5.4",
+    "rxjs": "~6.5.2",
+    "tslib": "^1.9.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.802.0",
+    "@angular/cli": "^8.2.0",
+    "@angular/compiler-cli": "~8.2.0",
+    "@angular/language-service": "~8.2.0",
+    "@types/node": "~8.9.4",
+    "codelyzer": "^5.0.1",
+    "node-sass": "^4.9.3",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.11.0",
+    "typescript": "~3.5.3"
+  }
 }

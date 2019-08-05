@@ -3,7 +3,7 @@ WORKDIR /app
 EXPOSE 4200
 
 COPY "OpenCdn.Client/package.json" ./
-COPY "OpenCdn.Client/yarn.lock" ./
+COPY "OpenCdn.Client/package-lock.json" ./
 
 RUN npm run restore
 COPY "OpenCdn.Client/*" ./
