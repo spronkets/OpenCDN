@@ -1,4 +1,4 @@
-﻿namespace OpenCdn.Data.Config
+namespace OpenCdn.Data.Config
 {
     public class ConnectionStrings
     {

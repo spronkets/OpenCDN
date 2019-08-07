@@ -27,7 +27,7 @@ namespace OpenCdn.WebApi
             var connectionStrings = new ConnectionStrings();
             Configuration.GetSection("ConnectionStrings").Bind(connectionStrings);
             services.AddSingleton(connectionStrings);
-            
+
             var registeredTypes = services.AutoRegisterDependencies();
 
             services.AddCors(options =>

@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace OpenCdn.WebApi.Controllers
 {
-    [Route("api/ping")]
     [ApiController]
     public class PingController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<dynamic> Get()
+        [AllowAnonymous]
+        [HttpGet, Route("api/ping")]
+        public ActionResult<string> Get()
         {
-            return Ok(new { Data = "Pong!" });
+            return Ok("Pong!");
         }
     }
 }

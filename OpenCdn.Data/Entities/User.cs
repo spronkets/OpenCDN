@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace OpenCdn.Data.Entities
 {
     public class User
     {
-        [Key]
         public long Id { get; set; }
+        public bool Active { get; set; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
-        public bool Active { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
