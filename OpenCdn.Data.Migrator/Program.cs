@@ -27,16 +27,51 @@ namespace OpenCdn.Data.Migrator
             {
                 var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 
-                var canMigrateUp = false;
-                var canMigrateDown = false;
-                var canRollback = false;
+                var canMigrateUp = runner.HasMigrationsToApplyUp(options.Version);
+                var canMigrateDown = options.Version.HasValue && runner.HasMigrationsToApplyDown(options.Version.Value);
+                var canRollback = runner.HasMigrationsToApplyRollback();
 
-                if (options.Version.HasValue)
+                var migrateUp = false;
+                var migrateDown = false;
+                var rollback = false;
+
+                if (canMigrateUp && !canMigrateDown && !canRollback)
                 {
-                    var version = options.Version.Value;
-                    canMigrateUp = runner.HasMigrationsToApplyUp(version);
-                    canMigrateDown = runner.HasMigrationsToApplyDown(version);
-                    canRollback = runner.HasMigrationsToApplyRollback();
+                    Console.WriteLine("\nYou can only migrate up. Continue? (y/n)");
+                    migrateUp = Console.ReadKey().Key == ConsoleKey.Y;
+                }
+                else if (canMigrateDown && !canMigrateUp && !canRollback)
+                {
+                    Console.WriteLine("\nYou can only migrate down. Continue? (y/n)");
+                    migrateDown = Console.ReadKey().Key == ConsoleKey.Y;
+                }
+                else if (canRollback && !canMigrateUp && !canMigrateDown)
+                {
+                    Console.WriteLine("\nYou can only rollback. Continue? (y/n)");
+                    rollback = Console.ReadKey().Key == ConsoleKey.Y;
+                }
+                else
+                {
+                    var cancel = false;
+                    do
+                    {
+                        Console.WriteLine("Multiple actions available. Please select what you want to do:");
+
+                        if (canMigrateUp)
+                        {
+                            Console.WriteLine("1) Migrate Up");
+                        }
+
+                        if (canMigrateDown)
+                        {
+                            Console.WriteLine("2) Migrate Down");
+                        }
+
+                        if (canRollback)
+                        {
+                            Console.WriteLine("3) Rollback");
+                        }
+                    } while (!migrateUp && !migrateDown && !rollback && !cancel);
                 }
 
                 //switch (options.Direction)
